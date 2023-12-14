@@ -18,7 +18,17 @@ internal class Program
 			Console.WriteLine($"\nСимвол не является буквой из латинского алфавита");
 			return;
 		}
-		var symbol = char.Parse(readChar);
+
+		char symbol;
+		try
+		{
+			symbol = char.Parse(readChar);
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine($"\nВведенные данные не являются символом");
+			return;
+		}
 		
 		var isUpperCase = CheckUpperCase(symbol);
 
