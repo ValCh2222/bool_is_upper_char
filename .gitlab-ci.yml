@@ -1,0 +1,28 @@
+﻿image : mcr.microsoft.com/dotnet/sdk:7.0
+
+stages:
+  - test-run
+  - release
+
+test-run:
+  stage: test-run
+  script:
+    - dotnet run --project ./BoolIsUpperChar/BoolIsUpperChar.csproj
+    - dotnet run --project ./BoolIsUpperChar/BoolIsUpperChar.csproj 3
+    - dotnet run --project ./BoolIsUpperChar/BoolIsUpperChar.csproj adasdsad
+    - dotnet run --project ./BoolIsUpperChar/BoolIsUpperChar.csproj ы
+    - dotnet run --project ./BoolIsUpperChar/BoolIsUpperChar.csproj r
+    - dotnet run --project ./BoolIsUpperChar/BoolIsUpperChar.csproj Y
+  artifacts:
+    paths:
+      - test/*.jar
+
+release:
+  stage: release
+  only:
+    - dev
+  artifacts:
+    paths:
+      - publish/*.jar
+  script:
+    - dotnet publish -c Release -o ../publish ./BoolIsUpperChar/BoolIsUpperChar.csproj
