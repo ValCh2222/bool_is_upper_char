@@ -1,3 +1,36 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using System.Text.RegularExpressions;
 
-Console.WriteLine("Hello, World!");
+internal class Program
+{
+	public static void Main(string[] args)
+	{
+
+		if (args.Length < 1)
+		{
+			Console.WriteLine($"\nargs < 1;");
+			return;
+		}
+		
+		var readChar = args[0];
+
+		if (Regex.IsMatch(readChar, "[^A-Za-z]+"))
+		{
+			Console.WriteLine($"\nСимвол не является буквой из латинского алфавита");
+			return;
+		}
+		var symbol = char.Parse(readChar);
+		
+		var isUpperCase = CheckUpperCase(symbol);
+
+		Console.WriteLine("\nРезультат:");
+		if (isUpperCase)
+			Console.WriteLine("Символ является заглавной буквой латинского алфавита.");
+		else
+			Console.WriteLine("Символ не является заглавной буквой латинского алфавита.");
+	}
+	
+	static bool CheckUpperCase(char symbol)
+	{
+		return symbol >= 'A' && symbol <= 'Z';
+	}
+}
